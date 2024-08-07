@@ -6,8 +6,7 @@ const Card = ({ keyLabel, value, Icon }) => {
         {Icon && <Icon className="icon" />}
       </span>
       <span className="value"><h3>{value || "N/A"}</h3></span>
-      <span className="key"><p>{keyLabel}</p></span>
-     
+      <span className="key"><p>{keyLabel}</p></span>   
     </div>
   );
 };

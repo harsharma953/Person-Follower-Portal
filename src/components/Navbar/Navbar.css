@@ -1,13 +1,22 @@
-.navbar-container{
-    padding: 1vw;
-    display: flex;
-    min-height: 5vh;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    vertical-align: middle;
+.navbar-container {
+  padding: 1vw;
+  display: flex;
+  min-height: 5vh;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  vertical-align: middle;
 }
-.yamaha-logo{
-    width: 7vw;
+.yamaha-logo {
+  width: 7vw;
 }
-.navbar-text{
-    margin-left: 2vw;
+.navbar-text {
+  margin:0 2vw;
+}
+.connected {
+  color: green;
+  font-weight: bold;
+}
+
+.disconnected {
+  color: #ED1D24;
+  font-weight: bold;
 }

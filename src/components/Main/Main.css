@@ -19,3 +19,6 @@
     padding: 5vh 2vw;
     /* background-color: brown; */
 }
+.toast-custom {
+    font-size: 16px; /* Adjust the font size as needed */
+}
