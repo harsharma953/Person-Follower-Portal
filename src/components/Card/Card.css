@@ -1,0 +1,27 @@
+.card-content{
+    max-width: 15vw;
+    min-height: 15vh;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    /* gap: 8px; */
+    padding: 1vh 1vw;
+    text-align: center;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 16px;
+}
+.icon{
+    font-size: 50px;
+    color: blue;
+    /* background-color: bisque; */
+}
+.key{
+    font-size: 12px;
+
+    /* background-color: yellowgreen; */
+}
+.value{
+    font-size: 16px;
+    /* background-color: blue; */
+}

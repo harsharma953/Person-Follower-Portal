@@ -1,0 +1,21 @@
+.main-container{
+    display: flex;
+    padding:5vh 5vw;
+    /* background-color: cornflowerblue; */
+    height: 89vh;
+}
+.video-frame-container{
+    width:60%;
+    padding: 5vh 2vw;
+    /* background-color: aquamarine; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+}
+.vehicle-data-container{
+    width: 40%;
+    padding: 5vh 2vw;
+    /* background-color: brown; */
+}

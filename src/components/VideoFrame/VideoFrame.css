@@ -1,0 +1,31 @@
+.frame-container {
+  display: flex;
+  width: 640px;
+  height: 480px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 16px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.frame-image {
+  width: 640px;
+  height: 480px;
+  border-radius: 16px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.data-frame {
+  /* color: white; */
+  background-color: white;
+  padding: 10px;
+  max-width: 100%;
+  min-height: 100%;
+
+  text-align: center;
+  /* background-color: aqua; */
+}
+.no-image-icon {
+  width: 300px;
+  /* background-color: brown; */
+  flex: 2;
+}

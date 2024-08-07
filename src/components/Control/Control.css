@@ -1,0 +1,32 @@
+.control-container {
+    display: flex;
+    justify-content: center;
+    /* background-color: #45a049; */
+  }
+  
+  .control-container button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    /* color: white; */
+    border-radius: 5px;
+  }
+  .start-button{
+    margin-left: 20px;
+    background-color: #4CAF50; 
+  }
+  .stop-button{
+    margin-left: 20px;
+    background-color: #ea3c42; 
+  }
+  .start-button:hover {
+    background-color: #45a049; 
+  }
+  .stop-button:hover {
+    background-color: #ef131a; 
+  }
+  
+  
+  
