@@ -12,55 +12,88 @@ const Main = ({ setIsConnected }) => {
   const [speed, setSpeed] = useState(0);
   const [trackingStatus, setTrackingStatus] = useState('In-Active');
   const [steeringAngle, setSteeringAngle] = useState(0);
+  const [hasReceivedFirstMesg, setHasReceivedFirstMesg] = useState(false);
 
   useEffect(() => {
-    const ws = new WebSocket("ws://localhost:8080");
+    let ws;
+    let retryInterval;
+    let messageTimeout;
 
-    ws.onopen = () => {
-     toast.success("Connected to Server", {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      transition: undefined,
-      className: "toast-custom",
-    });
+    const connect = () => {
+        ws = new WebSocket("ws://localhost:8080");
+
+        ws.onopen = () => {
+          console.log('Connected to the server');
+            setIsConnected(true);
+            toast.success("Connected to Server", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: undefined,
+                className: "toast-custom",
+            });
+            clearInterval(retryInterval); // Clear retry interval on successful connection
+        };
+
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            clearTimeout(messageTimeout);
+            if (message.type === "frame") {
+                const data = message.data;
+                setFrame(data.frame);
+                setDistance(data.distance);
+                setSpeed(data.speed);
+                setTrackingStatus(data.tracking_status);
+                setSteeringAngle(data.steering_angle);
+               
+            }
+            
+            messageTimeout = setTimeout(() => {
+              setFrame("");
+              setDistance(0);
+              setSpeed(0);
+              setTrackingStatus('In-Active');
+              setSteeringAngle(0);
+          }, 5000);
+        };
+
+        ws.onclose = () => {
+            setIsConnected(false);
+            setFrame("");
+            setDistance(0);
+            setSpeed(0);
+            setTrackingStatus('In-Active');
+            setSteeringAngle(0);
+            retryConnection(); 
+        };
+
+        ws.onerror = () => {
+          console.log('error in connecting to server');
+            setIsConnected(false);
+            retryConnection(); 
+        };
     };
 
-    ws.onmessage = (event) => {
-      const message = JSON.parse(event.data);
-      
-      setIsConnected(true);
-      if (message.type === "frame") {
-        const data = message.data;
-        setFrame(data.frame);
-        setDistance(data.distance);
-        setSpeed(data.speed);
-        setTrackingStatus(data.tracking_status);
-        setSteeringAngle(data.steering_angle);
-      }
-    };
-    ws.onclose = () => {
-      setIsConnected(false);
-      setFrame("")
-      setDistance(0);
-      setSpeed(0);
-      setTrackingStatus('In-Active');
-      setSteeringAngle(0);
+    const retryConnection = () => {
+        if (!retryInterval) {
+            retryInterval = setInterval(connect, 5000); // Retry every 5 seconds
+        }
     };
 
-    ws.onerror = () => {
-      setIsConnected(false); 
-    };
+    connect(); // Initial connection attempt
 
     return () => {
-      ws.close();
+        clearInterval(retryInterval); // Clear retry interval on component unmount
+        if (ws) {
+            ws.close();
+        }
     };
-  }, []);
+}, []);
 
   const sendCommand = (command) => {
     const ws = new WebSocket("ws://localhost:8080");
