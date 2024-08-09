@@ -1,7 +1,12 @@
+/* eslint-disable */
 import "./Control.css";
-const Control = ({ sendCommand }) => {
+
+const Control = ({ ws }) => {
+
   const sendMessage = (message) => {
-    sendCommand(message);
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify({ type: "command", data: message }));
+    }
   };
 
   const handleStart = () => {

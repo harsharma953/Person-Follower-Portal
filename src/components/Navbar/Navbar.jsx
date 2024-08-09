@@ -1,6 +1,10 @@
 import "./Navbar.css";
+import { useContext } from "react";
+import { WebSocketContext } from "../../context/WebSocketProvider"; // Import the context
+
 import Logo from "../../assets/images/yamaha-logo.svg";
-const Navbar = ({ isConnected }) => {
+const Navbar = () => {
+  const { isConnected } = useContext(WebSocketContext);
   return (
     <>
       <header className="navbar-container">
