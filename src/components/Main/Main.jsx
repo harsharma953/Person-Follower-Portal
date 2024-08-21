@@ -6,44 +6,50 @@ import VehicleData from "../VehicleData/VehicleData";
 import Control from "../Control/Control";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { WebSocketContext } from "../../context/WebSocketProvider"; // Import the context
+import { WebSocketContext } from "../../context/WebSocketProvider"; 
 import {
   showSuccessToast,
   showInfoToast,
-  showErrorToast,
+  showWarnToast,
+  showLoadingToast
 } from "../../utils/toastUtils";
 
-const Main = () => {
+const Main =()=> {
+  
   const { ws , setIsConnected} = useContext(WebSocketContext);
   const [frame, setFrame] = useState("");
   const [distance, setDistance] = useState(0);
   const [speed, setSpeed] = useState(0);
-  const [trackingStatus, setTrackingStatus] = useState("In-Active");
+  const [trackingStatus, setTrackingStatus] = useState("off");
   const [steeringAngle, setSteeringAngle] = useState(0);
-  // const [hasReceivedFirstMesg, setHasReceivedFirstMesg] = useState(false);
+  const [isFirstMessage, setIsFirstMessage] = useState(false);
+  let id;
 
   useEffect(() => {
     if (!ws) return;
-
     const handleMessage = (event) => {
       const message = JSON.parse(event.data);
       if (message.type === "connection" && message.client === "bot") {
         if (message.data === "connected") {
           console.log(`Bot ${message.data}`);
           showSuccessToast(`Bot ${message.data}`);
+          if(!isFirstMessage){
+            id = showLoadingToast('waiting for the frame ...')
+          }
           setIsConnected(true);
         } else if (message.data === "disconnected") {
           console.log(`Bot ${message.data}`);
-          showInfoToast(`Bot ${message.data}`);
+          showWarnToast(`Bot ${message.data}`);
           setIsConnected(false);
           setFrame("");
           setSpeed(0);
-          setTrackingStatus("In-Active");
+          setTrackingStatus("off");
           setSteeringAngle(0);
           setDistance(0)
         }
       } else if (message.type === "frame") {
         const data = message.data;
+        toast.dismiss(id);
         setFrame(data.frame);
         setDistance(data.distance);
         setSpeed(data.speed);
@@ -58,34 +64,6 @@ const Main = () => {
       ws.removeEventListener("message", handleMessage);
     };
   }, [ws]);
-
-  const sendCommand = (command) => {
-    const ws = new WebSocket("ws://localhost:8080");
-
-    ws.onopen = () => {
-      ws.send(JSON.stringify({ type: "command", data: command }));
-      toast.success("Command Sent Successfully!", {
-        position: "top-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: undefined,
-        className: "toast-custom",
-      });
-    };
-
-    ws.onclose = () => {
-      console.log(`Command '${command}' sent successfully.`);
-    };
-
-    ws.onerror = (error) => {
-      console.error(`WebSocket error: ${error}`);
-    };
-  };
 
   return (
     <>

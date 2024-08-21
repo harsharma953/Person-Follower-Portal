@@ -1,11 +1,18 @@
 /* eslint-disable */
+import { WebSocketContext } from "../../context/WebSocketProvider";
 import "./Control.css";
+import { useContext } from "react";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+
+import { showSuccessToast } from "../../utils/toastUtils";
 
 const Control = ({ ws }) => {
 
+  const {isConnected} = useContext(WebSocketContext)
   const sendMessage = (message) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ type: "command", data: message }));
+      showSuccessToast(`${message} command sent`)
     }
   };
 
@@ -19,12 +26,13 @@ const Control = ({ ws }) => {
 
   return (
     <div className="control-container">
-      <button onClick={handleStop} className="stop-button">
+      <button onClick={handleStop} className="stop-button" disabled={!isConnected}>
         Stop Vehicle
       </button>
-      <button onClick={handleStart} className="start-button">
+      <button onClick={handleStart} className="start-button" disabled={!isConnected}>
         Start Vehicle
       </button>
+
     </div>
   );
 };

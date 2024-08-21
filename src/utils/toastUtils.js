@@ -1,6 +1,5 @@
 import { toast, Bounce } from 'react-toastify';
 
-// Utility function to show success toast
 export const showSuccessToast = (message) => {
   toast.success(message, {
     position: "top-center",
@@ -16,7 +15,6 @@ export const showSuccessToast = (message) => {
   });
 };
 
-// Utility function to show info toast
 export const showInfoToast = (message) => {
   toast.info(message, {
     position: "top-center",
@@ -32,9 +30,8 @@ export const showInfoToast = (message) => {
   });
 };
 
-// Utility function to show error toast
-export const showErrorToast = (message) => {
-  toast.error(message, {
+export const showWarnToast = (message) => {
+  toast.warn(message, {
     position: "top-center",
     autoClose: 3000,
     hideProgressBar: true,
@@ -47,3 +44,20 @@ export const showErrorToast = (message) => {
     className: "toast-custom",
   });
 };
+
+export const showLoadingToast = (message) => {
+  const id = toast.info(message, {
+    position: "top-center",
+    autoClose: false,
+    hideProgressBar: true,
+    closeOnClick: false,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: "light",
+    transition: Bounce,
+    className: "toast-custom",
+  });
+  return id;
+};
+

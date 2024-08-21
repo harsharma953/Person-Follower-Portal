@@ -1,13 +1,9 @@
 .main-container{
     display: flex;
-    padding:5vh 5vw;
-    /* background-color: cornflowerblue; */
-    height: 89vh;
+    min-height:90vh ;
 }
 .video-frame-container{
     width:60%;
-    padding: 5vh 2vw;
-    /* background-color: aquamarine; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -16,9 +12,8 @@
 }
 .vehicle-data-container{
     width: 40%;
-    padding: 5vh 2vw;
-    /* background-color: brown; */
+    padding:3.5rem 2rem;
 }
 .toast-custom {
-    font-size: 16px; /* Adjust the font size as needed */
+    font-size: 16px;
 }

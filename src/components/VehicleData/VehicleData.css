@@ -1,55 +1,15 @@
 .vehicle-container {
-  /* background-color: chartreuse; */
-  display: flex;
-  /* flex-direction: column; */
-  gap: 10px;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-  /* padding-left: 20px; */
-}
-
-/* .vehicle-info-container p{
-    margin-top: 22%;
-} */
-.speed {
-  margin-top: 5%;
-}
-.steering-angle {
-  margin-top: 20%;
-}
-.tracking-status {
-  margin-top: 20%;
-}
-
-.vehicle-info-table {
-  width: 100%;
-  border-collapse: collapse;
-  /* background-color:aqua ; */
-}
-
-.vehicle-info-table td {
+  display: grid;
+  grid-template-columns: auto auto;
+  /* background-color: #2196f3; */
   padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
-  vertical-align: middle;
+  gap: 10px 10px;
+  height: 80%;
+  width: 100%;
 }
 
-.vehicle-info-table .parameter {
-  font-weight: bold;
-  vertical-align: middle;
-  /* background-color: aqua; */
-}
-.icon-container {
-  /* background-color: bisque; */
-  margin: 10px;
-}
-.icon {
-  /* position: absolute; */
-  font-size: 28px;
-  /* margin-top: 2px;  */
-  /* background-color: aqua;  */
+.vehicle-data-heading{
+  text-align: center;
+
 }
 
-/* .vehicle-info-table .icon i {
-    font-size: 20px;
-    color: #555555;
-  } */

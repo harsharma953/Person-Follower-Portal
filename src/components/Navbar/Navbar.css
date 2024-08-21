@@ -1,15 +1,15 @@
 .navbar-container {
-  padding: 1vw;
+  padding: 1rem;
+  min-height: 10vh;
   display: flex;
-  min-height: 5vh;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   vertical-align: middle;
 }
 .yamaha-logo {
-  width: 7vw;
+  width: 6rem;
 }
 .navbar-text {
-  margin:0 2vw;
+  margin:0 2rem;
 }
 .connected {
   color: green;

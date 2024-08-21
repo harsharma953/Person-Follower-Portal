@@ -1,15 +1,13 @@
 /* eslint-disable */
 import Main from "./components/Main/Main";
 import Navbar from "./components/Navbar/Navbar";
-import Test from "./components/test/test";
+import "./App.css";
 
 const App = () => {
-
   return (
     <>
       <Navbar />
       <Main />
-      {/* <Test /> */}
     </>
   );
 };

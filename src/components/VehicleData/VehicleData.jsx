@@ -13,21 +13,23 @@ const VehicleData = ({distance,speed,steeringAngle,trackingStatus}) => {
 
   return (
     <>
-     <h3 className="vehicle-data-heading">Vehicle Data</h3>
+    
+    <h1 className="vehicle-data-heading">Bot Data</h1>
       <div className="vehicle-container">
         {Object.keys(vehicleInfo).map((key) => {
         const Icon = iconMap[key];
-        const unit = unitMap[key] || ''; // Default to an empty string if not found
+        const unit = unitMap[key] || '';
         return (
           <Card
             key={key}
-            keyLabel={key.replace(/([A-Z])/g, ' $1').toLowerCase()} // Formatting key
+            keyLabel={key.replace(/([A-Z])/g, ' $1').toLowerCase()}
             value={`${vehicleInfo[key]} ${unit}`}
             Icon={Icon}
           />
         );
       })}
       </div>
+     
     </>
   );
 };

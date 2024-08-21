@@ -1,8 +1,8 @@
 import "./Navbar.css";
 import { useContext } from "react";
-import { WebSocketContext } from "../../context/WebSocketProvider"; // Import the context
-
+import { WebSocketContext } from "../../context/WebSocketProvider"; 
 import Logo from "../../assets/images/yamaha-logo.svg";
+
 const Navbar = () => {
   const { isConnected } = useContext(WebSocketContext);
   return (
@@ -11,10 +11,10 @@ const Navbar = () => {
         <span>
           <img src={Logo} alt="yamaha-logo" className="yamaha-logo" />
         </span>
-        <span className="navbar-text">Person Follower</span>
-        <span className={isConnected ? "connected" : "disconnected"}>
+        <h1 className="navbar-text">Person Follower Bot</h1>
+        <h1 className={isConnected ? "connected" : "disconnected"}>
         • {isConnected ? "Connected" : "Disconnected"}
-      </span>
+      </h1>
       </header>
     </>
   );
