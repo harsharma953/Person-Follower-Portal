@@ -29,7 +29,7 @@ const Main =()=> {
     if (!ws) return;
     const handleMessage = (event) => {
       const message = JSON.parse(event.data);
-      if (message.msgType === "connection" && message.clientType === "bot") {
+      if (message.msgType === "identify" && message.clientType === "bot") {
         if (message.data === "connected") {
           console.log(`${message.clientType} ${message.data}`);
           showSuccessToast(`Bot ${message.data}`);
@@ -46,7 +46,7 @@ const Main =()=> {
           setSteeringAngle(0);
           setDistance(0);
         }
-      } else if (message.msgType === "frame") {
+      } else if(message.msgType === "frame") {
         const data = message.data;
         toast.dismiss(id);
         setFrame(data.frame);

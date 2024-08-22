@@ -1,2 +1,2 @@
-export const CONNECTED_MSG = {client:"portal" , type: "connection", data: "connected" };
+export const CONNECTED_MSG = {clientType:"portal" , msgType: "identify", data: "connected" };
 export const CONNECTION_RETRY_INTERVAL = 5000;

@@ -11,7 +11,7 @@ const Control = ({ ws }) => {
   const {isConnected} = useContext(WebSocketContext)
   const sendMessage = (message) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
-      ws.send(JSON.stringify({ type: "command", data: message }));
+      ws.send(JSON.stringify({ msgType: "command", data: message }));
       showSuccessToast(`${message} command sent`)
     }
   };
