@@ -29,25 +29,24 @@ const Main =()=> {
     if (!ws) return;
     const handleMessage = (event) => {
       const message = JSON.parse(event.data);
-      if (message.type === "connection" && message.client === "bot") {
+      if (message.msgType === "connection" && message.clientType === "bot") {
         if (message.data === "connected") {
-          console.log(`Bot ${message.data}`);
+          console.log(`${message.clientType} ${message.data}`);
           showSuccessToast(`Bot ${message.data}`);
           if(!isFirstMessage){
             id = showLoadingToast('waiting for the frame ...')
           }
           setIsConnected(true);
         } else if (message.data === "disconnected") {
-          console.log(`Bot ${message.data}`);
-          showWarnToast(`Bot ${message.data}`);
-          setIsConnected(false);
+          console.log(`${message.clientType} ${message.data}`);
+          showWarnToast(`Frames ${message.data}`);
           setFrame("");
           setSpeed(0);
           setTrackingStatus("off");
           setSteeringAngle(0);
-          setDistance(0)
+          setDistance(0);
         }
-      } else if (message.type === "frame") {
+      } else if (message.msgType === "frame") {
         const data = message.data;
         toast.dismiss(id);
         setFrame(data.frame);
