@@ -2,7 +2,7 @@
 import { WebSocketContext } from "../../context/WebSocketProvider";
 import "./Control.css";
 import { useContext } from "react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+
 
 import { showSuccessToast } from "../../utils/toastUtils";
 
@@ -32,7 +32,6 @@ const Control = ({ ws }) => {
       <button onClick={handleStart} className="start-button" disabled={!isConnected}>
         Start Vehicle
       </button>
-
     </div>
   );
 };
