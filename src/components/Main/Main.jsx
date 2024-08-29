@@ -6,24 +6,24 @@ import VehicleData from "../VehicleData/VehicleData";
 import Control from "../Control/Control";
 import { Bounce, ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { WebSocketContext } from "../../context/WebSocketProvider"; 
+import { WebSocketContext } from "../../context/WebSocketProvider";
 import {
   showSuccessToast,
-  showInfoToast,
   showWarnToast,
-  showLoadingToast
+  showLoadingToast,
 } from "../../utils/toastUtils";
 
-const Main =()=> {
-  
-  const { ws , setIsConnected} = useContext(WebSocketContext);
+const Main = () => {
+  const { ws, setIsConnected } = useContext(WebSocketContext);
+  const [toggled, setToggled] = useState(false);
   const [frame, setFrame] = useState("");
   const [distance, setDistance] = useState(0);
   const [speed, setSpeed] = useState(0);
   const [trackingStatus, setTrackingStatus] = useState("off");
   const [steeringAngle, setSteeringAngle] = useState(0);
   const [isFirstMessage, setIsFirstMessage] = useState(false);
-  let id;
+  const [frameMessageSuccess, setFrameMessageSuccess] = useState(false);
+  let toastId;
 
   useEffect(() => {
     if (!ws) return;
@@ -33,9 +33,7 @@ const Main =()=> {
         if (message.data === "connected") {
           console.log(`${message.clientType} ${message.data}`);
           showSuccessToast(`Bot ${message.data}`);
-          if(!isFirstMessage){
-            id = showLoadingToast('waiting for the frame ...')
-          }
+          toastId = toast.loading("Waiting for Frames..");
           setIsConnected(true);
         } else if (message.data === "disconnected") {
           console.log(`${message.clientType} ${message.data}`);
@@ -46,17 +44,28 @@ const Main =()=> {
           setSteeringAngle(0);
           setDistance(0);
         }
-      } else if(message.msgType === "frame") {
+      } else if (message.msgType === "frame") {
+        if (!frameMessageSuccess) {
+          if (toastId) {
+            toast.update(toastId, {
+              render: "Frame loaded successfully!",
+              type: "success",
+              isLoading: false,
+              autoClose:2000
+            });
+            toast.dismiss(toastId);
+            toastId = undefined;
+          
+          }
+        }
         const data = message.data;
-        toast.dismiss(id);
-        setFrame(data.frame);
+        setFrame(toggled ? data.depth_frame : data.frame);
         setDistance(data.distance);
         setSpeed(data.speed);
         setTrackingStatus(data.tracking_status);
         setSteeringAngle(data.steering_angle);
       }
     };
-
     ws.addEventListener("message", handleMessage);
 
     return () => {
@@ -64,12 +73,13 @@ const Main =()=> {
     };
   }, [ws]);
 
+
   return (
     <>
       <div className="main-container">
         <div className="video-frame-container">
           <VideoFrame frame={frame} />
-          <Control ws={ws} />
+          <Control toggled={toggled} setToggled={setToggled}/>
         </div>
         <div className="vehicle-data-container">
           <VehicleData

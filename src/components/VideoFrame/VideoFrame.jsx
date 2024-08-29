@@ -14,7 +14,7 @@ const VideoFrame = ({ frame }) => {
         </div>
       ) : (
         <div className="frame-container">
-          <p style={{ textAlign: "center" }}>No Frames Available</p>
+          <p>No Frames Available</p>
           <img src={NoImage} alt="no-data-frame" className="no-image-icon" />
         </div>
       )}

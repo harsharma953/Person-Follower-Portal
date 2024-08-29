@@ -1,4 +1,3 @@
-// iconMap.js
 import { IoMdSpeedometer } from 'react-icons/io';
 import { TbSteeringWheel } from 'react-icons/tb';
 import { SiStatuspal } from 'react-icons/si';

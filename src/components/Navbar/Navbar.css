@@ -1,5 +1,5 @@
 .navbar-container {
-  padding: 1rem;
+  padding:2vh 2vw;
   min-height: 10vh;
   display: flex;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -10,13 +10,40 @@
 }
 .navbar-text {
   margin:0 2rem;
+
 }
 .connected {
   color: green;
   font-weight: bold;
 }
-
 .disconnected {
   color: #ED1D24;
   font-weight: bold;
+}
+@media(max-width:1024px){
+  .navbar-container {
+    padding:2vh 2vw;
+    font-size: 1rem;
+    min-height: 7vh;
+    display: flex;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    vertical-align: middle;
+  }
+  .yamaha-logo {
+    width: 8rem;
+  }
+  .navbar-text {
+    margin:0 2rem;
+    font-size: 2rem;
+  }
+  .connected {
+    color: green;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .disconnected {
+    color: #ED1D24;
+    font-weight: bold;
+    font-size: 2rem;
+  }
 }

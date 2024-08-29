@@ -46,9 +46,9 @@ export const showWarnToast = (message) => {
 };
 
 export const showLoadingToast = (message) => {
-  const id = toast.info(message, {
+  const id = toast.loading(message, {
     position: "top-center",
-    autoClose: false,
+    autoClose: 2000,
     hideProgressBar: true,
     closeOnClick: false,
     pauseOnHover: false,

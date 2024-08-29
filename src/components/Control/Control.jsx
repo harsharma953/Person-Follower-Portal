@@ -1,36 +1,50 @@
 /* eslint-disable */
 import { WebSocketContext } from "../../context/WebSocketProvider";
 import "./Control.css";
-import { useContext } from "react";
-
-
+import { useContext, useState } from "react";
 import { showSuccessToast } from "../../utils/toastUtils";
 
-const Control = ({ ws }) => {
-
-  const {isConnected} = useContext(WebSocketContext)
+const Control = ({toggled,setToggled}) => {
+  const { ws, isConnected } = useContext(WebSocketContext);
+  // const [toggled, setToggled] = useState(false);
+  
   const sendMessage = (message) => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ msgType: "command", data: message }));
-      showSuccessToast(`${message} command sent`)
+      showSuccessToast(`${message} command sent`);
     }
-  };
-
-  const handleStart = () => {
-    sendMessage("start");
-  };
-
-  const handleStop = () => {
-    sendMessage("stop");
   };
 
   return (
     <div className="control-container">
-      <button onClick={handleStop} className="stop-button" disabled={!isConnected}>
-        Stop Vehicle
+      <span style={{ marginTop: "10px" }}>RGB</span>
+      <button
+        className={`toggle-btn ${toggled ? "toggled" : ""}`}
+        onClick={() => setToggled((currValue) => !currValue)}
+      >
+        <div className="thumb"></div>
       </button>
-      <button onClick={handleStart} className="start-button" disabled={!isConnected}>
-        Start Vehicle
+      <span style={{ marginTop: "10px" }}>Depth</span>
+      <button
+        onClick={() => sendMessage("stop")}
+        className="stop-button"
+        disabled={!isConnected}
+      >
+        Stop Bot
+      </button>
+      <button
+        onClick={() => sendMessage("pause")}
+        className="pause-button"
+        disabled={!isConnected}
+      >
+        Pause Bot
+      </button>
+      <button
+        onClick={() => sendMessage("start")}
+        className="start-button"
+        disabled={!isConnected}
+      >
+        Start Bot
       </button>
     </div>
   );

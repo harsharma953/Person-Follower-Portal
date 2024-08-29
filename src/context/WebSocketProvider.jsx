@@ -31,13 +31,11 @@ export const WebSocketProvider = ({ children }) => {
       console.log(`Error in creating WebSocket connection`);
     };
   };
-
   const retryConnection = () => {
     if (!retryInterval) {
       retryInterval = setInterval(connect, CONNECTION_RETRY_INTERVAL);
     }
   };
-
   useEffect(() => {
     connect();
     return () => {

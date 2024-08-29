@@ -7,7 +7,7 @@ const Navbar = () => {
   const { isConnected } = useContext(WebSocketContext);
   return (
     <>
-      <header className="navbar-container">
+      <nav className="navbar-container">
         <span>
           <img src={Logo} alt="yamaha-logo" className="yamaha-logo" />
         </span>
@@ -15,7 +15,7 @@ const Navbar = () => {
         <h1 className={isConnected ? "connected" : "disconnected"}>
         • {isConnected ? "Connected" : "Disconnected"}
       </h1>
-      </header>
+      </nav>
     </>
   );
 };
