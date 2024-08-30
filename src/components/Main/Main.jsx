@@ -12,9 +12,10 @@ import {
   showWarnToast,
   showLoadingToast,
 } from "../../utils/toastUtils";
+import { BOT_STATUS } from "../../constants/commands";
 
 const Main = () => {
-  const { ws, setIsConnected } = useContext(WebSocketContext);
+  const { ws, setBotStatus } = useContext(WebSocketContext);
   const [toggled, setToggled] = useState(false);
   const [frame, setFrame] = useState("");
   const [distance, setDistance] = useState(0);
@@ -30,15 +31,26 @@ const Main = () => {
     const handleMessage = (event) => {
       const message = JSON.parse(event.data);
       if (message.msgType === "identify" && message.clientType === "bot") {
-        if (message.data === "connected") {
+        if (message.data === BOT_STATUS.CONNECTED) {
           console.log(`${message.clientType} ${message.data}`);
           showSuccessToast(`Bot ${message.data}`);
           toastId = toast.loading("Waiting for Frames..");
-          setIsConnected(true);
-        } else if (message.data === "disconnected") {
+          setBotStatus(BOT_STATUS.CONNECTED);
+        } else if (message.data === BOT_STATUS.PAUSED) {
           console.log(`${message.clientType} ${message.data}`);
           showWarnToast(`Frames ${message.data}`);
           setFrame("");
+          setBotStatus(BOT_STATUS.PAUSED)
+          setSpeed(0);
+          setTrackingStatus("off");
+          setSteeringAngle(0);
+          setDistance(0);
+        }
+        else if(message.data === BOT_STATUS.DISCONNECTED){
+          console.log(`${message.clientType} ${message.data}`);
+          showWarnToast(`Bot ${message.data}`);
+          setFrame("");
+          setBotStatus(BOT_STATUS.DISCONNECTED)
           setSpeed(0);
           setTrackingStatus("off");
           setSteeringAngle(0);
@@ -71,7 +83,7 @@ const Main = () => {
     return () => {
       ws.removeEventListener("message", handleMessage);
     };
-  }, [ws]);
+  }, [ws , toggled]);
 
 
   return (

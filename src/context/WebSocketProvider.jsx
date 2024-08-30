@@ -1,17 +1,17 @@
 /* eslint-disable */
 import { createContext, useState, useEffect } from "react";
-import { CONNECTED_MSG , CONNECTION_RETRY_INTERVAL } from "../constants/commands";
+import { BOT_STATUS, CONNECTED_MSG , CONNECTION_RETRY_INTERVAL } from "../constants/commands";
 
 export const WebSocketContext = createContext(null);
 
 export const WebSocketProvider = ({ children }) => {
   const [ws, setWs] = useState(null);
-  const [isConnected, setIsConnected] = useState(false);
+  const [botStatus, setBotStatus] = useState(BOT_STATUS.DISCONNECTED);
   let webSocket;
   let retryInterval;
 
   const connect = () => {
-    webSocket = new WebSocket(import.meta.env.VITE_WEBSOCKET_URL);
+    webSocket = new WebSocket("ws://localhost:8080");
     webSocket.onopen = () => {
       console.log(`Connected to the server : ${new Date().toString()}`)
       if (webSocket && webSocket.readyState === WebSocket.OPEN) {
@@ -47,7 +47,7 @@ export const WebSocketProvider = ({ children }) => {
   }, []);
 
   return (
-    <WebSocketContext.Provider value={{ ws, isConnected, setIsConnected }}>
+    <WebSocketContext.Provider value={{ ws, botStatus, setBotStatus }}>
       {children}
     </WebSocketContext.Provider>
   );

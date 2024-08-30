@@ -20,6 +20,10 @@
   color: #ED1D24;
   font-weight: bold;
 }
+.paused {
+  color: #eb9f2e;
+  font-weight: bold;
+}
 @media(max-width:1024px){
   .navbar-container {
     padding:2vh 2vw;
@@ -43,6 +47,11 @@
   }
   .disconnected {
     color: #ED1D24;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  .paused {
+    color: #eb9f2e;
     font-weight: bold;
     font-size: 2rem;
   }

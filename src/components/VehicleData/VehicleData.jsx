@@ -13,7 +13,6 @@ const VehicleData = ({distance,speed,steeringAngle,trackingStatus}) => {
 
   return (
     <>
-    
     <h1 className="vehicle-data-heading">Bot Data</h1>
       <div className="vehicle-container">
         {Object.keys(vehicleInfo).map((key) => {

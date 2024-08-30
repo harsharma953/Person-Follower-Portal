@@ -4,7 +4,7 @@ import { WebSocketContext } from "../../context/WebSocketProvider";
 import Logo from "../../assets/images/yamaha-logo.svg";
 
 const Navbar = () => {
-  const { isConnected } = useContext(WebSocketContext);
+  const { botStatus } = useContext(WebSocketContext);
   return (
     <>
       <nav className="navbar-container">
@@ -12,8 +12,8 @@ const Navbar = () => {
           <img src={Logo} alt="yamaha-logo" className="yamaha-logo" />
         </span>
         <h1 className="navbar-text">Person Follower Bot</h1>
-        <h1 className={isConnected ? "connected" : "disconnected"}>
-        • {isConnected ? "Connected" : "Disconnected"}
+        <h1 className={botStatus}>
+        • {botStatus.charAt(0).toUpperCase() + botStatus.slice(1)}
       </h1>
       </nav>
     </>
